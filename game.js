@@ -64,3 +64,33 @@ function start() {
   current = 0;
   generateRandom();
 }
+
+function buttonClicked() {
+  if (gameOver) return;
+  if (this.id !== colorsOrder[current]) {
+    endGame();
+  } else if (current + 1 === level) {
+    addLevel();
+  } else {
+    current++;
+  }
+}
+
+function endGame() {
+  gameOver = true;
+  title.textContent = "Game Over, Press Any Key to Restart";
+  document.body.classList.add("game-over");
+  document.getElementById("wrongAudio").play();
+  setTimeout(() => {
+    document.body.classList.remove("game-over");
+  }, 200);
+}
+
+function addLevel() {
+  level++;
+  title.textContent = "Level " + level;
+  current = 0;
+  setTimeout(() => {
+    generateRandom();
+  }, 1000);
+}
